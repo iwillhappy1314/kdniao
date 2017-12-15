@@ -1,8 +1,4 @@
-_快递鸟电子面单Api整合_
---------------------------------------------------------------------------------
-<pre>
-demo示例已写入index.php
-
+<?php
 header("Content-type: text/html; charset=utf-8");
 require_once __DIR__ . '/vendor/autoload.php';
 use KdNiao\singlePlane;
@@ -28,4 +24,3 @@ $result->IsReturnPrintTemplate = 1;
 $data = $result->request();
 var_dump( $data );
 echo $data['PrintTemplate'];
-</pre>
