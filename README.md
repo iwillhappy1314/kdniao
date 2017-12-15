@@ -1,12 +1,10 @@
 _快递鸟电子面单Api整合_
 --------------------------------------------------------------------------------
 <pre>
-demo示例已写入index.php
-
 header("Content-type: text/html; charset=utf-8");
 require_once __DIR__ . '/vendor/autoload.php';
 use KdNiao\singlePlane;
-$result = new singlePlane( [ 'EBusinessID' => 1316308, 'AppKey' => 'a88940ab-8ce2-4a60-b539-feef30ff8658' ] );
+$result = new singlePlane( [ 'EBusinessID' => 商户id, 'AppKey' => AppKey ] );
 //构造电子面单提交信息
 
 $result->set_logistics( 'ShipperCode', 'SF' );
@@ -14,15 +12,15 @@ $result->set_logistics( 'OrderCode', '012657700387' );
 $result->set_logistics( 'PayType', 1 );
 $result->set_logistics( 'ExpType', 1 );
 $result->set_sender( 'Name', '发件方' );
-$result->set_sender( 'Mobile', '18888888888' );
-$result->set_sender( 'ProvinceName', '江苏省' );
-$result->set_sender( 'CityName', '常州市' );
-$result->set_sender( 'Address', '新北区软件园江苏优度软件有限公司' );
-$result->set_receiver( 'Name', '汤先生' );
-$result->set_receiver( 'Mobile', '18888888888' );
-$result->set_receiver( 'ProvinceName', '上海' );
-$result->set_receiver( 'CityName', '上海市' );
-$result->set_receiver( 'Address', '闵行区漕宝路' );
+$result->set_sender( 'Mobile', '发件方手机号' );
+$result->set_sender( 'ProvinceName', '发件省份' );
+$result->set_sender( 'CityName', '发件省市' );
+$result->set_sender( 'Address', '发件详细地址' );
+$result->set_receiver( 'Name', '收件方' );
+$result->set_receiver( 'Mobile', '收件方手机号' );
+$result->set_receiver( 'ProvinceName', '收件省份' );
+$result->set_receiver( 'CityName', '收件城市' );
+$result->set_receiver( 'Address', '收件详细地址' );
 $result->set_goods( array( 'GoodsName' => '商品名' ) );
 $result->IsReturnPrintTemplate = 1;
 $data = $result->request();
