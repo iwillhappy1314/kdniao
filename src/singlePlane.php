@@ -67,7 +67,6 @@ class singlePlane{
                 $config['ReqUrl'] = 'http://testapi.kdniao.cc:8081/api/EOrderService';
             }
         }
-
         $this->config = $config;
     }
 
