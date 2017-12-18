@@ -12,9 +12,9 @@ class singlePlane{
 
     //快递鸟配置
     protected $config = array(
-            'EBusinessID'   =>  '商户ID',
-            'AppKey'        =>  'API key',
-            'ReqUrl'        =>  '默认为0，1为正式环境地址0为测试环境地址'
+        'EBusinessID'   =>  '商户ID',
+        'AppKey'        =>  'API key',
+        'ReqUrl'        =>  '1'
     );
     //电子面单-物流配置
     private $logistics  = array();
@@ -54,11 +54,20 @@ class singlePlane{
     {
         if( !isset( $config['EBusinessID'] ) ) exit( '请配置商户ID' );
         if( !isset( $config['AppKey'] ) ) exit( '请配置AppKey' );
-        if( !isset( $config['ReqUrl'] ) || $config['ReqUrl'] == 0 ){
-            $config['ReqUrl'] = 'http://testapi.kdniao.cc:8081/api/EOrderService';
+        if( isset( $config['ReqUrl'] ) ){
+            if( (int)$config['ReqUrl'] == 1 ){
+                $config['ReqUrl'] = 'http://api.kdniao.cc/api/Eorderservice';
+            }else{
+                $config['ReqUrl'] = 'http://testapi.kdniao.cc:8081/api/EOrderService';
+            }
         }else{
-            $config['ReqUrl'] = 'http://api.kdniao.cc/api/Eorderservice';
+            if( (int)$this->config['ReqUrl'] == 1 ){
+                $config['ReqUrl'] = 'http://api.kdniao.cc/api/Eorderservice';
+            }else{
+                $config['ReqUrl'] = 'http://testapi.kdniao.cc:8081/api/EOrderService';
+            }
         }
+
         $this->config = $config;
     }
 
@@ -85,32 +94,44 @@ class singlePlane{
 
     /**
      * @function 设置物流配置
-     * @param $key
+     * @param $key array|string
      * @param $value
      */
-    public function set_logistics( $key, $value )
+    public function set_logistics( $key, $value = '' )
     {
-        $this->logistics[$key] = $value;
+        if( is_array( $key ) ){
+            $this->logistics = array_merge( $this->logistics, $key );
+        }else{
+            $this->logistics[$key] = $value;
+        }
     }
 
     /**
      * @function 设置收件方信息
-     * @param $key
+     * @param $key array|string
      * @param $value
      */
-    public function set_receiver( $key, $value )
+    public function set_receiver( $key, $value = '' )
     {
-        $this->receiver[$key] = $value;
+        if( is_array( $key ) ){
+            $this->receiver = array_merge( $this->receiver, $key );
+        }else{
+            $this->receiver[$key] = $value;
+        }
     }
 
     /**
      * @function 设置配送方信息
-     * @param $key
+     * @param $key array|string
      * @param $value
      */
-    public function set_sender( $key, $value )
+    public function set_sender( $key, $value = '' )
     {
-        $this->sender[$key] = $value;
+        if( is_array( $key ) ){
+            $this->sender = array_merge( $this->sender, $key );
+        }else{
+            $this->sender[$key] = $value;
+        }
     }
 
     /**
@@ -121,7 +142,11 @@ class singlePlane{
      */
     public function set_goods( $array )
     {
-        $this->goods[] = $array;
+        if( count( $array ) == count( $array, 1 ) ){
+            $this->goods[] = $array;
+        }else{
+            $this->goods = array_merge( $this->goods, $array );
+        }
     }
 
     /**
